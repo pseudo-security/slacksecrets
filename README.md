@@ -21,15 +21,35 @@ Y88b  d88P 888 888  888 Y88b.    888 "88b Y88b  d88P Y8b.     Y88b.    888    Y8
 
 `pip install slacksecrets`
 
+```python
+usage: slacksecrets [-h] [--token TOKEN] [--no-banner] [--skip-db-update]
+                    [--exported-dir EXPORTED_DIR]
+                    {live,history,exported,reset}
+
+positional arguments:
+  {live,history,exported,reset}
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --token TOKEN
+  --no-banner
+  --skip-db-update
+  --exported-dir EXPORTED_DIR
+```
+
 `SlackSecrets` will need a valid Slack API token. `SlackSecrets` will take a token from the command line with the `--token <slack-token>` option, or if a `SLACK_TOKEN` environment variable is set. The `--token` parameter will override the `SLACK_TOKEN` environment variable.
 
 ### Live Slack monitoring
 
-...
+`slacksecrets live` (if `SLACK_TOKEN` environment variable is set) or `slacksecrets live --token <slack-token>`.
+
+This will listen to all messages posted to your Slack instance and scan them for any secrets that match according to the rules in the `rules` directory.
 
 ### Historical Slack scanning (using web API)
 
-...
+`slacksecrets history` (if `SLACK_TOKEN` environment variable is set) or `slacksecrets history --token <slack-token>`.
+
+This every message since the creation of the Slack workspace that match according to the rules in the `rules` directory. Progress will be kept in a sqlite database file named `<workspace-name>.db` so if progress is interrupted, messages will not be scanned multiple times. This will also reduce the likelihood of hitting Slack API's rate limiting.
 
 ### Historical Slack scanning (using Slack "Export Data")
 
@@ -38,6 +58,12 @@ Y88b  d88P 888 888  888 Y88b.    888 "88b Y88b  d88P Y8b.     Y88b.    888    Y8
 1. When the export is ready, download the .zip file from the "Past Exports" section on the page. The filename is usually `<workspace-name> Slack export <start-date> - <end-date>.zip`.
 1. Extract the file to a directory on your local machine.
 1. Run `SlackSecrets` with the `exported` command, and specify the extracted directory, like so: `slacksecrets exported --export-dir <path-to-extracted-directory>`.
+
+### Resetting Historical Scanning Progress
+
+`slacksecrets reset`(if `SLACK_TOKEN` environment variable is set) or `slacksecrets reset --token <slack-token>`.
+
+This is most useful if additional rules have been added or need to be tested for Historical Slack scanning (using the web API).
 
 ## Contributing
 
