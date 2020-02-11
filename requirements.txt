@@ -1,0 +1,12 @@
+aiohttp==3.6.2
+async-timeout==3.0.1
+attrs==19.3.0
+chardet==3.0.4
+colorama==0.4.3
+idna==2.8
+multidict==4.7.4
+pony==0.7.12
+slackclient==2.5.0
+tqdm==4.42.1
+yara-python==3.11.0
+yarl==1.4.2
