@@ -116,43 +116,6 @@ class File(db.Entity):
     url_private = Required(str)
     permalink = Required(str)
 
-    model = """
-        "size": 144538,
-        "created": 1531763342,
-        "name": "billair.gif",
-        "title": "billair.gif",
-        "mimetype": "image/gif",
-        "filetype": "gif",
-        "user": "U061F7AUR",
-        "mode": "hosted",
-        "is_external": false,
-        "is_public": true,
-        "public_url_shared": false,
-        
-        "editable": false,
-        "external_type": "",
-        "display_as_bot": false,
-        "username": "",
-        "url_private": "https://.../billair.gif",
-        "url_private_download": "https://.../billair.gif",
-        "deanimate_gif": "https://.../billair_deanimate_gif.png",
-        "pjpeg": "https://.../billair_pjpeg.jpg",
-        "permalink": "https://https://.../billair.gif",
-        "permalink_public": "https://.../...",
-        
-        
-        "thumb_64": "https://.../billair_64.png",
-        "thumb_80": "https://.../billair_80.png",
-        "thumb_360": "https://.../billair_360.png",
-        "thumb_360_w": 176,
-        "thumb_360_h": 226,
-        "thumb_160": "https://.../billair_=_160.png",
-        "thumb_360_gif": "https://.../billair_360.gif",
-        "image_exif_rotation": 1,
-        "original_w": 176,
-        "original_h": 226,
-"""
-
 
 class Finding(db.Entity):
     # The primary-key for a match is the channel + timestamp, the rule identifier,
