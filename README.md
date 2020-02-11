@@ -15,7 +15,9 @@ Y88b  d88P 888 888  888 Y88b.    888 "88b Y88b  d88P Y8b.     Y88b.    888    Y8
 `SlackSecrets` is a tool to discover sensitive information in Slack instances (access tokens, API keys, password hashes, etc.). It offers several modes,
 
 1. **Live monitoring** - Leverages the Real-Time Messaging API to scan messages as they're sent.
-1. **Historical** - Scans every message since the creation of the Slack workspace. This can be done with the web API or with Slack's "Export Data" feature.
+1. **Historical** - Scans every message since the creation of the Slack workspace. This can be done with the web API _or_ with Slack's "Export Data" feature.
+
+Secrets are matched according to YARA files located in the `slacksecrets/rules` directory. All YARA rules in the directory will be auto-detected, so additional rules can be easily added. The YARA rules also contain test cases in the `meta` tags to help ensure the rules are correctly matching text.
 
 ## Getting Started
 
