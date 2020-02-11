@@ -21,7 +21,7 @@ Y88b  d88P 888 888  888 Y88b.    888 "88b Y88b  d88P Y8b.     Y88b.    888    Y8
 
 `pip install slacksecrets`
 
-```python
+```
 usage: slacksecrets [-h] [--token TOKEN] [--no-banner] [--skip-db-update]
                     [--exported-dir EXPORTED_DIR]
                     {live,history,exported,reset}
