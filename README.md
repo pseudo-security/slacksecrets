@@ -17,7 +17,7 @@ Y88b  d88P 888 888  888 Y88b.    888 "88b Y88b  d88P Y8b.     Y88b.    888    Y8
 1. **Live monitoring** - Leverages the Real-Time Messaging API to scan messages as they're sent.
 1. **Historical** - Scans every message since the creation of the Slack workspace. This can be done with the web API _or_ with Slack's "Export Data" feature.
 
-Secrets are matched according to YARA files located in the `slacksecrets/rules` directory. All YARA rules in the directory will be auto-detected, so additional rules can be easily added. The YARA rules also contain test cases in the `meta` tags to help ensure the rules are correctly matching text.
+Secrets are matched according to [YARA](https://github.com/virustotal/yara) rules located in the `slacksecrets/rules` directory. YARA is "a tool aimed at (but not limited to) helping malware researchers to identify and classify malware samples." It offers increased flexibility over regular expressions, [as well as several other benefits](#why-yara-over-regular-expressions). All YARA rules in the directory will be auto-detected, so additional rules can be easily added. The YARA rules also contain test cases in the `meta` tags to help ensure the rules are correctly matching text.
 
 ## Getting Started
 
@@ -51,7 +51,7 @@ This will listen to all messages posted to your Slack instance and scan them for
 
 `slacksecrets history` (if `SLACK_TOKEN` environment variable is set) or `slacksecrets history --token <slack-token>`.
 
-This every message since the creation of the Slack workspace that match according to the rules in the `rules` directory. Progress will be kept in a sqlite database file named `<workspace-name>.db` so if progress is interrupted, messages will not be scanned multiple times. This will also reduce the likelihood of hitting Slack API's rate limiting.
+This scans every message since the creation of the Slack workspace that match according to the rules in the `rules` directory. Progress will be kept in a sqlite database file named `<workspace-name>.db` so if progress is interrupted, messages will not be scanned multiple times. This will also reduce the likelihood of hitting Slack API's rate limiting.
 
 ### Historical Slack scanning (using Slack "Export Data")
 
@@ -66,6 +66,10 @@ This every message since the creation of the Slack workspace that match accordin
 `slacksecrets reset`(if `SLACK_TOKEN` environment variable is set) or `slacksecrets reset --token <slack-token>`.
 
 This is most useful if additional rules have been added or need to be tested for Historical Slack scanning (using the web API).
+
+## Testing
+
+Testing uses `pytest`, so running the tests is as simple as running `pytest` from the commandline.
 
 ## Contributing
 

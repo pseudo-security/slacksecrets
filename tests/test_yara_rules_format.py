@@ -1,4 +1,6 @@
 import os
+
+import pkg_resources
 import yara
 from slacksecrets.secrets import build_rules_filepaths
 
@@ -23,7 +25,7 @@ def pytest_generate_tests(metafunc):
 
 
 class TestYaraFormat:
-    yara_files = build_rules_filepaths([os.path.join('..', 'slacksecrets', 'rules')])
+    yara_files = build_rules_filepaths([pkg_resources.resource_filename('slacksecrets', 'rules')])
 
     def test_yara_rule(self, rule, required_meta_tag):
         assert (required_meta_tag in rule.meta.keys())

@@ -3,6 +3,8 @@ import json
 import os
 import pkg_resources
 import slack
+from os import listdir
+from os.path import isfile, join
 from colorama import Style
 from pony.orm import commit, db_session
 from tqdm import tqdm
@@ -55,7 +57,7 @@ class SlackSecrets:
 
     def exported(self):
         # TODO: this function is pretty sloppy and should be refactored
-        info("Starting Real-Time Message monitoring")
+        info("Scanning Slack 'Exported Data' directory: {}".format(self.args.get('exported_dir')))
 
         users_json = os.path.join(self.args.get('exported_dir'), 'users.json')
         channels_json = os.path.join(self.args.get('exported_dir'), 'channels.json')
@@ -74,8 +76,6 @@ class SlackSecrets:
                     if Conversation.select(lambda c: c.id == convo.get('id')).count() == 0:
                         Conversation.from_dict(convo)
 
-            from os import listdir
-            from os.path import isfile, join
             onlydirs = [f for f in listdir(self.args.get('exported_dir')) if not isfile(join(self.args.get('exported_dir'), f))]
             for dir in onlydirs:
 
