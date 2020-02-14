@@ -27,7 +27,7 @@ class LOGLEVEL(Enum):
     INFO = 0,
     WARNING = 1,
     ERROR = 2,
-    DISCOVERY = 3
+    SUCCESS = 3
 
 
 def log(level: LOGLEVEL, message: str):
@@ -35,7 +35,7 @@ def log(level: LOGLEVEL, message: str):
         prefix = Fore.YELLOW + "[~]"
     elif level == LOGLEVEL.ERROR:
         prefix = Fore.RED + "[x]"
-    elif level == LOGLEVEL.DISCOVERY:
+    elif level == LOGLEVEL.SUCCESS:
         prefix = Fore.GREEN + "[+]"
     else:
         prefix = "[ ]"
@@ -54,8 +54,8 @@ def error(message: str):
     log(LOGLEVEL.ERROR, message)
 
 
-def discovery(message: str):
-    log(LOGLEVEL.DISCOVERY, message)
+def success(message: str):
+    log(LOGLEVEL.SUCCESS, message)
 
 
 def mask_slack_token(token):
@@ -75,7 +75,8 @@ def mask_slack_token(token):
 def dump_config(args: dict):
     info("Dumping running configuration:")
     max_keylen = max(map(len, args.keys()))
-    for key, val in args.items():
+    for key in sorted(args.keys()):
+        val = args[key]
         if key == "token":
             val = mask_slack_token(val)
         info("\t" + key.ljust(max_keylen) + "\t" + str(val))

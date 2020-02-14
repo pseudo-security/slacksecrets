@@ -9,7 +9,7 @@ from colorama import Style
 from pony.orm import commit, db_session
 from tqdm import tqdm
 
-from slacksecrets.utils import dump_config, error, info
+from slacksecrets.utils import dump_config, error, info, success
 from slacksecrets.models import Conversation, Finding, User, db
 from slacksecrets.secrets import Secrets
 from slacksecrets.slackwrapper import SlackWrapper
@@ -28,12 +28,12 @@ class SlackSecrets:
             rule_dirs=pkg_resources.resource_filename('slacksecrets', 'rules'),
             reporting_callback=self.report_match)
 
-        self.args['db-name'] = "%s.db" % self.slacker.generate_db_name()
-        self.args['is-free'] = self.slacker.is_free_plan
+        self.args['db_name'] = "%s.db" % self.slacker.generate_db_name()
+        self.args['is_free'] = self.slacker.is_free_plan
 
         dump_config(self.args)
 
-        db_abs_path = os.path.join(self.args.get('db-path'), self.args.get('db-name'))
+        db_abs_path = os.path.join(self.args.get('db_path'), self.args.get('db_name'))
         db.bind(provider='sqlite', filename=db_abs_path, create_db=True)
         db.generate_mapping(create_tables=True)
 
@@ -50,7 +50,7 @@ class SlackSecrets:
                 c.lastest_ts = ''
             commit()
 
-    def live_monitor(self):
+    def live(self):
         info("Starting Real-Time Message monitoring")
         rtm_client = slack.RTMClient(token=self.args.get('token'))
         rtm_client.start()
@@ -111,6 +111,9 @@ class SlackSecrets:
             self.slacker.process_convo_history(convo['id'], self.secrets.scan_message)
             pbar.update(1)
         pbar.close()
+
+    def files(self):
+        pass
 
     def report_match(self, message, rule_id, matching_text):
         # To get a permalink to this message, we need the channel and event timestamp.
