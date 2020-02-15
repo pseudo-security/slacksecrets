@@ -9,7 +9,8 @@ rule PhoneNumberRule
         test_match_1 = "Give them a call at 555-867-5309."
 
     strings:
-        $ = /[0-9]{3}-[0-9]{3}-[0-9]{4}/
+        $1 = /[0-9]{3}-[0-9]{3}-[0-9]{4}/
+        $2 = /\([0-9]{3}\) [0-9]{3}-[0-9]{4}/
 
     condition:
         any of them
